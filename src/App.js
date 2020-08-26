@@ -16,6 +16,7 @@ function App() {
   const  [isPresupuesto, guardaIsPresupuesto] = useState(false);
   const  [muestraPresupuesto, guardaMuestraPresupuesto] = useState(false);
   const  [error, guardaError] = useState(false);
+  const  [totalpago, guardaTotalPago ] = useState(0);
 
   const agregaProducto = (producto)=>{
     guardarProductos([...productos,producto]);
@@ -30,11 +31,14 @@ function App() {
     guardaCarrito([...carrito, carr]);
     let _prods = productos.filter(prod => prod.id !== carr.id);
     let _restante = restante;
+    let _totalpago = 0;
     
     guardarProductos(_prods);
     _restante = _restante - (parseInt(carr.precio) * parseInt(carr.cantidad));
+    _totalpago = presupuesto - _restante;
     console.log(_restante);
     guardarRestante(_restante);
+    guardaTotalPago(_totalpago);
   }
 
   const changeMenu = ()=>{
@@ -84,6 +88,7 @@ function App() {
                   <div className="one-half column"><label>Presupuesto: </label> <p>{presupuesto}</p></div>
                   <div className="one-half column"><label>Restante: </label> <p>{restante}</p></div>
                 </div>
+                
             }
           </div>
 
@@ -99,6 +104,7 @@ function App() {
                     carrito = {carrito}
                     
                   />
+                  <div><label>Total Pago: </label> <p>{totalpago}</p></div>
                 </div>
               </div>
           </div>
